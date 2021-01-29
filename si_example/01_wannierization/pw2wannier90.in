@@ -1,0 +1,5 @@
+&inputpp
+   outdir = './calculations'
+   prefix = 'si'
+   seedname = 'si'
+/

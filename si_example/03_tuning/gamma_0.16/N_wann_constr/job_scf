@@ -1,0 +1,22 @@
+#!/bin/bash -l
+#SBATCH -J Si
+#SBATCH -p normal
+#SBATCH -t 00:08:00
+#SBATCH --nodes=4
+#SBATCH -n 32
+#SBATCH -c 32
+#SBATCH --output=test_mpi-out.%j
+#SBATCH --error=test_mpi-err.%j
+#SBATCH --mail-user=guy.ohad@weizmann.ac.il
+#SBATCH --mail-type=end
+#SBATCH --core-spec=2
+
+export OMP_NUM_THREADS=8
+export OMP_PLACES=threads
+export OMP_PROC_BIND=spread
+
+MPIRUN='ibrun'
+EXE='/home1/07352/tg866516/apps/quantum_espresso/qe_6.2_wannier_constr_dat/q-e_private/bin/pw.x'
+PWFLAGS='-nb 4'
+
+$MPIRUN $EXE $PWFLAGS -input si.in &> si.out
